@@ -3,8 +3,8 @@ import time
 
 def listner():
     print('Обработка результата')
-    for i in range(20):
-        print('.', end='')
+    for i in range(10):
+        print('*_*', end='_')
         time.sleep(.3)
     print()
 
