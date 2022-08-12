@@ -1,10 +1,20 @@
+from aiogram import Bot, Dispatcher, executor, types
+from aiogram.types import InputFile
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 import sqlite3
+
+bot = Bot(token="1521325076:AAFfDO4zU6ZQcN1HxaUh1y6BNtkGYLEDvzs")
+# Диспетчер для бота
+dp = Dispatcher(bot)
 
 db = sqlite3.connect('base.db')
 cur = db.cursor()
 
-print('Wat do you want?')
-choice = input('Ad member tab N: \nSee member tab S: \nUpdate age memeber tab U: \nDelete user tab D: ')
+
+@dp.message_handler(commands=['start'])
+async def start_up(message: types.Message):
+    await message.answer('Що плануєтет робити?')
+    await message.answer('Ad member tab N: \nSee member tab S: \nUpdate age memeber tab U: \nDelete user tab D: ')
 
 # cur.execute("""CREATE TABLE IF NOT EXISTS articles(
 #         name text PRIMARY KEY,
@@ -50,13 +60,16 @@ def delete_user():
     db.commit()
 
 
-if choice.lower() == 'n':
-    new_member()
-elif choice.lower() == 's':
-    see_member()
-elif choice.lower() == 'u':
-    update_age()
-elif choice.lower() == 'd':
-    delete_user()
+# if choice.lower() == 'n':
+#     new_member()
+# elif choice.lower() == 's':
+#     see_member()
+# elif choice.lower() == 'u':
+#     update_age()
+# elif choice.lower() == 'd':
+#     delete_user()
 
 db.close()
+
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
