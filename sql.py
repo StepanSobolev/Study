@@ -4,11 +4,12 @@ db = sqlite3.connect('base.db')
 cur = db.cursor()
 
 print('Wat do you want?')
-choice = input('Ad member tab N, see member tab S')
+choice = input('Ad member tab N: \n see member tab S: \n update age memeber tab U:  ')
 cur.execute("""CREATE TABLE IF NOT EXISTS articles(
-        name text,
+        name text PRIMARY KEY,
         age integer
     )""")
+
 
 def new_member():
     name = input('Введите имя: ')
@@ -17,8 +18,15 @@ def new_member():
     db.commit()
 
 
+def update_age():
+    name = input('Введите имя: ')
+    age = input('Какой возраст ввести: ')
+    cur.execute(f"""UPDATE articles SET age = '{age}' WHERE name = '{name}'""")
+    db.commit()
+
+
 def see_member():
-    see_all = input('If you see all tap U: ')
+    see_all = input('If you see all tap Y: ')
     if see_all.lower() == 'u':
         cur.execute("SELECT name FROM articles")
         one_result = cur.fetchall()
@@ -32,5 +40,7 @@ if choice.lower() == 'n':
     new_member()
 elif choice.lower() == 's':
     see_member()
+elif choice.lower() == 'u':
+    update_age()
 
 db.close()
