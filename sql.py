@@ -4,7 +4,7 @@ db = sqlite3.connect('base.db')
 cur = db.cursor()
 
 print('Wat do you want?')
-choice = input('Ad member tab N, select member tab S')
+choice = input('Ad member tab N, see member tab S')
 cur.execute("""CREATE TABLE IF NOT EXISTS articles(
         name text,
         age integer
