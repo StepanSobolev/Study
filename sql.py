@@ -5,15 +5,14 @@ cur = db.cursor()
 
 print('Wat do you want?')
 choice = input('Ad member tab N, select member tab S')
-
+cur.execute("""CREATE TABLE IF NOT EXISTS articles(
+        name text,
+        age integer
+    )""")
 
 def new_member():
     name = input('Введите имя: ')
     age = int(input('Введите возраст: '))
-    cur.execute("""CREATE TABLE IF NOT EXISTS articles(
-        name text,
-        age integer
-    )""")
     cur.execute("""INSERT INTO articles VALUES (?, ?)""", (name, age))
     db.commit()
 
